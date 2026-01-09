@@ -165,11 +165,11 @@ contract DSCEngine is ReentrancyGuard {
      * @param amountDscToBurn: The amount of DSC you want to burn
      * @notice This function will withdraw your collateral and burn DSC in one transaction
      */
-    function reedemCollateralForDsc(address tokenCollateralAddress, uint256 amountCollateral, uint256 amountDscToBurn)
+    function redeemCollateralForDsc(address tokenCollateralAddress, uint256 amountCollateral, uint256 amountDscToBurn)
         external
     {
         burnDsc(amountDscToBurn);
-        reedemCollateral(tokenCollateralAddress, amountCollateral);
+        redeemCollateral(tokenCollateralAddress, amountCollateral);
     }
 
     /*
@@ -178,7 +178,7 @@ contract DSCEngine is ReentrancyGuard {
      * @notice This function will redeem your collateral.
      * @notice If you have DSC minted, you will not be able to redeem until you burn your DSC
      */
-    function reedemCollateral(address tokenCollateralAddress, uint256 amountCollateral)
+    function redeemCollateral(address tokenCollateralAddress, uint256 amountCollateral)
         public
         moreThanZero(amountCollateral)
         nonReentrant
@@ -361,5 +361,13 @@ contract DSCEngine is ReentrancyGuard {
         // total collateral value
         (uint256 totalDscMinted, uint256 collateralValueInUsd) = _getAccountInformation(user);
         return _calculateHealthFactor(totalDscMinted, collateralValueInUsd);
+    }
+
+    function getCollateralTokens() public view returns(address[] memory) {
+        return sCollateralTokens;
+    }
+
+    function getCollateralBalanceOfTheUser(address user, address token) public view returns(uint256){
+        return sCollateralDeposited[user][token];
     }
 }

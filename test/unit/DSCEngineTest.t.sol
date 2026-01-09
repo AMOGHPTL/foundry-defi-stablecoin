@@ -165,7 +165,7 @@ contract DSCEngineTest is Test {
 
     function testRedeemCollateral() public depositedCollateral {
         vm.startPrank(USER);
-        engine.reedemCollateral(weth, AMOUNT_COLLATERAL);
+        engine.redeemCollateral(weth, AMOUNT_COLLATERAL);
         vm.stopPrank();
     }
 
@@ -173,11 +173,11 @@ contract DSCEngineTest is Test {
     ////////redeem collateral for DSC Tests////////////
     ///////////////////////////////////////////////////
 
-    function testUserCanReedemCollateralForDsc() public depositedCollateralAndMintedDsc {
+    function testUserCanredeemCollateralForDsc() public depositedCollateralAndMintedDsc {
         uint256 startingBalance = dsc.balanceOf(USER);
         vm.startPrank(USER);
         dsc.approve(address(engine), AMOUNT_TO_MINT);
-        engine.reedemCollateralForDsc(weth, AMOUNT_COLLATERAL, AMOUNT_TO_MINT);
+        engine.redeemCollateralForDsc(weth, AMOUNT_COLLATERAL, AMOUNT_TO_MINT);
         vm.stopPrank();
         uint256 endingBalance = dsc.balanceOf(USER);
         assertEq(endingBalance, 0);
