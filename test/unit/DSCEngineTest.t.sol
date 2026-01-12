@@ -151,7 +151,7 @@ contract DSCEngineTest is Test {
     }
 
     function testRevertIfHealthFactorIsBroken() public depositedCollateralAndMintedDsc {
-        uint256 startingHealthFactor = engine.healthFactor(USER);
+        // uint256 startingHealthFactor = engine.healthFactor(USER);
         vm.startPrank(USER);
         // uint256 endingHealthFactor = engine.healthFactor(USER);
         vm.expectRevert();
@@ -227,6 +227,6 @@ contract DSCEngineTest is Test {
         vm.expectRevert(DSCEngine.DSCEngine__HealthFactorOk.selector);
         engine.liquidate(weth, USER, AMOUNT_TO_MINT);
         vm.stopPrank();
-        uint256 healthFactor = engine.healthFactor(USER);
+        // uint256 healthFactor = engine.healthFactor(USER);
     }
 }
